@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Input, message } from "antd";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addCompany, fetchCompanies } from "../../api/api"; // fetchCompanies ni import qilish
+import { addCompany } from "../../api/api";
 
 const AddCompany: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
-  const queryClient = useQueryClient(); // QueryClientni olish
+  const queryClient = useQueryClient();
 
   const handleOpenModal = () => setIsModalOpen(true);
 
@@ -19,7 +19,9 @@ const AddCompany: React.FC = () => {
     mutationFn: addCompany,
     onSuccess: () => {
       message.success("Компания успешно добавлена!");
-      queryClient.invalidateQueries(["companies"]); // "companies" query yangilandi
+      queryClient.invalidateQueries({
+        queryKey: ["companies"]
+      });
       handleCloseModal();
     },
     onError: () => {

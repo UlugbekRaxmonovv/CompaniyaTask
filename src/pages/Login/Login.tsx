@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Card, Typography } from "antd";
+import { Form, Input, Button, Card, Typography, message } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { loginUser, LoginData } from "../../api/api";
@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     },
     onSuccess: (data) => {
       localStorage.setItem("token", data);
-      toast.success("Ro‘yxatdan o‘tish muvaffaqiyatli! Endi tizimga kiring.");
+      message.success("Ro‘yxatdan o‘tish muvaffaqiyatli! Endi tizimga kiring.");
       navigate("/dashboard");
     },
     onError: (error: any) => {

@@ -35,3 +35,35 @@ export const addCompany = async (company: { name: string; count: number }) => {
   });
   return data;
 };
+export const deleteCompany = async (deletes: { id: string }, token: string) => {
+  const response = await axios.delete(`${API_BASE}companies/delete/by-id`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    data: deletes, 
+  });
+  return response.data;
+};
+
+
+export const updateCompany = async (
+  companyData: { id: string; name: string; count: number },
+  token: string
+) => {
+  const response = await axios.put(
+    `${API_BASE}companies/update`,
+    {
+      id: companyData.id,
+      name: companyData.name,
+      count: companyData.count,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
