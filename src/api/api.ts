@@ -23,12 +23,30 @@ export const loginUser = async (data: LoginData) => {
   const response = await axios.post(`${API_BASE}auths/sign-in`, data);
   return response.data;
 };
-export const fetchRepos = async () => {
-  const response = await axios.get(`${API_BASE}companies/get-all`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
+export const fetchRepos = async (search: string, pageSize: number, pageIndex: number) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(`${API_BASE}companies/get-all`, {
+      params: { 
+        search: search || undefined, 
+        PageSize: pageSize,
+        PageIndex: pageIndex 
+      },
+      headers: { 
+        Authorization: `Bearer ${token}` 
+      },
+    });
+    
+    return {
+      items: response.data.items || response.data,
+      total: response.data.total || response.data.length,
+    };
+  } catch (error) {
+    throw error;
+  }
 };
+
+
 export const addCompany = async (company: { name: string; count: number }) => {
   const { data } = await axios.post(`${API_BASE}companies/add`, company, {
     headers: { Authorization: `Bearer ${token}` },

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, message } from 'antd';
+import { VscInfo } from 'react-icons/vsc';
 
 interface DeleteModalProps {
   isOpen: boolean;
@@ -25,15 +26,19 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 
   return (
     <Modal
-      title="Удаление компании"
       open={isOpen}
       onOk={handleDelete}
       onCancel={onClose}
-      okText="Удалить"
-      cancelText="Отмена"
+      okText="Да"
+      cancelText="Нет"
+      width={315}
+      closable={false}
       okButtonProps={{ className: "bg-red-600 hover:bg-red-700 text-white" }}
     >
-      <p>Вы уверены, что хотите удалить эту компанию?</p>
+      <div className="flex gap-2 items-center">
+      <VscInfo  className= "text-yellow-900"   /><p>
+      Вы хотите удалить?</p>
+      </div>
     </Modal>
   );
 };

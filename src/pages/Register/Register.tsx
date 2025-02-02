@@ -25,10 +25,13 @@ const Register: React.FC = () => {
   });
 
   return (
-    <div
-      className="flex items-center justify-center min-h-screen bg-cover bg-center px-4"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
+<div
+  className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat
+  bg-left-bottom
+ relative"
+  style={{ backgroundImage: `url(${backgroundImage})` }}
+>
+  <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
       <Card className="w-full max-w-md p-6 shadow-xl rounded-lg">
         <Title level={2} className="text-center mb-4">
           Регистрация

@@ -19,9 +19,7 @@ const AddCompany: React.FC = () => {
     mutationFn: addCompany,
     onSuccess: () => {
       message.success("Компания успешно добавлена!");
-      queryClient.invalidateQueries({
-        queryKey: ["companies"]
-      });
+      queryClient.invalidateQueries(["companies"]);
       handleCloseModal();
     },
     onError: () => {
@@ -35,12 +33,15 @@ const AddCompany: React.FC = () => {
 
   return (
     <>
-      <Button
+      <button
         onClick={handleOpenModal}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+        className="bg-[#08979C] hover:bg-[#077b7e] text-white px-4 py-2 rounded-md cursor-pointer whitespace-nowrap
+
+"
       >
         Добавить компанию
-      </Button>
+      </button>
+
       <Modal
         title="Добавить компанию"
         open={isModalOpen}
@@ -48,24 +49,37 @@ const AddCompany: React.FC = () => {
         footer={null}
       >
         <Form form={form} onFinish={handleAddCompany} layout="vertical">
-          <Form.Item
-            label="Название компании"
-            name="name"
-            rules={[{ required: true, message: "Введите название компании" }]}
-          >
-            <Input placeholder="Введите название компании" />
-          </Form.Item>
-          <Form.Item
-            label="Количество сотрудников"
-            name="count"
-            rules={[{ required: true, message: "Введите количество сотрудников" }]}
-          >
-            <Input type="number" placeholder="Введите количество сотрудников" />
-          </Form.Item>
-          <div className="flex justify-end gap-2">
-            <Button onClick={handleCloseModal}>Отмена</Button>
-            <Button type="primary" htmlType="submit" loading={mutation.isPending}>
-              Добавить
+          <div className="flex justify-start items- gap-8">
+            <div className="mt-[5px] w-[200px]">
+              <p>Названия компании</p>
+            </div>
+            <div className="">
+              <Form.Item name="name" className=" w-[250px]"  rules={[{ required: true, message: "Введите названия" }]}>
+                <Input placeholder="Введите названия"  />
+              </Form.Item>
+            </div>
+          </div>
+
+          <div className="flex justify-start items-center gap-8">
+            <div className="-mt-[25px] w-[200px]">
+              <p>Количество сотрудников</p>
+            </div>
+            <div className="">
+              <div className="">
+                <Form.Item name="count" className=" w-[250px] "  rules={[{ required: true, message: "Введите количество" }]}>
+                  <Input type="number" placeholder="Введите количество" />
+                </Form.Item>
+              </div>
+            </div>
+          </div>
+          <div className="flex  justify-center items-center">
+            {/* <Button onClick={handleCloseModal}>Отмена</Button> */}
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={mutation.isPending}
+            >
+              Добавить компания
             </Button>
           </div>
         </Form>
